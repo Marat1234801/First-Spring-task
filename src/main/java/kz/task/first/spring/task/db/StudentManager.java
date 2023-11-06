@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class StudentManager {
     @Getter
@@ -19,17 +21,41 @@ public class StudentManager {
     }
 
     public static void addStudent(Student student) {
-        student.setMark("F");
-        if (student.getExam() >= 90)
-            student.setMark("A");
-        if (student.getExam() >= 75 && student.getExam() <= 89)
-            student.setMark("B");
-        if (student.getExam() >= 60 && student.getExam() <= 74)
-            student.setMark("C");
-        if (student.getExam() >= 50 && student.getExam() <= 59)
-            student.setMark("D");
+        String mark = student.calculateMark(student.getExam());
+        student.setMark(mark);
         student.setId(studentId);
         students.add(student);
         studentId++;
+    }
+
+    public static void deleteStudentById(Long id) {
+        students.removeIf(student -> Objects.equals(student.getId(), id));
+    }
+
+    public static Student getStudentById(Long id) {
+        return students.stream().filter(student -> Objects.equals(student.getId(), id))
+                .findFirst().orElse(null);
+    }
+
+    public static void updateStudent(Long id, String name, String surname, Integer exam) {
+        Student student = getStudentById(id);
+        student.setName(name);
+        student.setSurname(surname);
+        student.setExam(exam);
+        String mark = student.calculateMark(student.getExam());
+        student.setMark(mark);
+    }
+
+    public static List<Student> findStudent(String search) {
+        if (search.isEmpty())
+            return students;
+
+        return students.stream().filter(student -> student.getName()
+                        .toLowerCase()
+                        .contains(search.toLowerCase()) || student
+                        .getSurname()
+                        .toLowerCase()
+                        .contains(search.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

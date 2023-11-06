@@ -10,6 +10,8 @@
             <th>SURNAME</th>
             <th>EXAM</th>
             <th>MARK</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +26,16 @@
                 th:text="${student.exam}"></td>
             <td th:style="${student.mark == 'F' ? 'color:red; font-weight:bold;' : 'color:black'}"
                 th:text="${student.mark}"></td>
+            <td>
+                <form th:action="${'/edit-student/'+ student.id}" method="get">
+                    <button class="btn btn-warning">EDIT</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="${'/delete-student/'+ student.id}" method="post">
+                    <button class="btn btn-danger">DELETE</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

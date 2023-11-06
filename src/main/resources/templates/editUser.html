@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+<div class="mt-4" layout:fragment="content">
+    <form th:action="${'/edit-student/'+student.getId()}" method="post">
+        <label for="name" class="form-label">NAME</label>
+        <input class="form form-control mb-3" type="text" th:value="${student.getName()}" id="name" name="name"
+               placeholder="Insert your name">
+        <label for="surname" class="form-label">SURNAME</label>
+        <input  class="form form-control mb-3" type="text" id="surname" name="surname" th:value="${student.getSurname()}"
+               placeholder="Insert your surname">
+        <label for="exam" class="form-label">EXAM</label>
+        <input class="form form-control mb-3" type="number" id="exam" name="exam" th:value="${student.getExam()}"
+               placeholder="Insert your exam mark">
+        <button class="btn btn-success">Edit Student</button>
+    </form>
+</div>
+</html>
