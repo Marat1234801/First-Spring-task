@@ -20,8 +20,23 @@ public class StudentManager {
         students.add(new Student(4L, "Nurzhan", "Bolatov", 48, "F"));
     }
 
+    public static String calculateMark(Integer exam) {
+        if (exam == null) {
+            return null;
+        }
+        if (exam >= 90)
+            return ("A");
+        else if (exam >= 75)
+            return ("B");
+        else if (exam >= 60)
+            return ("C");
+        else if (exam >= 50)
+            return ("D");
+        return ("F");
+    }
+
     public static void addStudent(Student student) {
-        String mark = student.calculateMark(student.getExam());
+        var mark = calculateMark(student.getExam());
         student.setMark(mark);
         student.setId(studentId);
         students.add(student);
@@ -38,11 +53,11 @@ public class StudentManager {
     }
 
     public static void updateStudent(Long id, String name, String surname, Integer exam) {
-        Student student = getStudentById(id);
+        var student = getStudentById(id);
         student.setName(name);
         student.setSurname(surname);
         student.setExam(exam);
-        String mark = student.calculateMark(student.getExam());
+        String mark = calculateMark(student.getExam());
         student.setMark(mark);
     }
 

@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 public class HomeController {
     @GetMapping("/")
     public String getStudents(Model model) {
-        List<Student> students = StudentManager.getStudents();
+        var students = StudentManager.getStudents();
         model.addAttribute("students", students);
         return "home";
     }
@@ -27,7 +25,7 @@ public class HomeController {
 
     @PostMapping("/add-student")
     public String addStudent(@RequestParam String name, @RequestParam String surname, @RequestParam Integer exam) {
-        Student newStudent = Student.builder()
+        var newStudent = Student.builder()
                 .name(name)
                 .surname(surname)
                 .exam(exam)
@@ -44,7 +42,7 @@ public class HomeController {
 
     @GetMapping("/edit-student/{id}")
     public String editStudent(@PathVariable Long id, Model model) {
-        Student student = StudentManager.getStudentById(id);
+        var student = StudentManager.getStudentById(id);
         if (student != null) {
             model.addAttribute("student", student);
             return "editUser";
@@ -65,7 +63,7 @@ public class HomeController {
 
     @GetMapping("/search-student")
     public String searchStudent(@RequestParam String search, Model model) {
-        List<Student> students = StudentManager.findStudent(search);
+        var students = StudentManager.findStudent(search);
         model.addAttribute("students", students);
         return "home";
     }
