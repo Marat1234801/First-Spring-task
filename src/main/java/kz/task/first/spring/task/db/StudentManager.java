@@ -20,7 +20,7 @@ public class StudentManager {
         students.add(new Student(4L, "Nurzhan", "Bolatov", 48, "F"));
     }
 
-    public static String calculateMark(Integer exam) {
+    private static String calculateMark(Integer exam) {
         if (exam == null) {
             return null;
         }
